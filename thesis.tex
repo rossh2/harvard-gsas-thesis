@@ -28,23 +28,32 @@
 % tables that spill over multiple pages
 \usepackage{longtable}
 
-% references
-\usepackage{natbib}
-
-% fonts that are nicer than defaults
-\usepackage[sc]{mathpazo}
-\usepackage{courier}
-
 % Use 8-bit encoding that has 256 glyphs, pretty please
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc} % No need since XeLaTeX
 \usepackage[T1]{fontenc}
-
-% babel is required for blindtext, which generates random text
-\usepackage[english]{babel}
-\usepackage{blindtext}
+\usepackage{hyphenat} % Allows manual hyphenation of words with hyphens
 
 % math support
 \usepackage{amsmath}
+\usepackage{amssymb}
+
+% fonts that are nicer than defaults
+\usepackage{unicode-math}  %%%%% Requires XeLaTeX or LuaLaTeX!!  %%%%%%%%%%
+\setmainfont{TeX Gyre Pagella} % Pagella similar to Palatino, Termes similar to Times
+\setmathfont{TeX Gyre Pagella Math}
+
+% references
+\usepackage[backend=biber, natbib=true, style=authoryear-comp, useprefix=true, maxcitenames=3, maxbibnames=10]{biblatex}
+\addbibresource{references.bib}
+% use double-spacing between bibliography items but single-spacing within 
+% (single-spacing is defined in the bibliography below)
+\setlength{\bibitemsep}{0.6\baselineskip plus .05\baselineskip minus .05\baselineskip}
+
+% babel is required for blindtext, which generates random text
+% and babel wants you to load csquotes
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{blindtext}
 
 % Slightly tweak font spacing for aesthetics
 \usepackage{microtype}
@@ -60,11 +69,36 @@
 \RequirePackage[font=small,format=plain,labelfont=bf,textfont=it]{caption}
 \addtolength{\abovecaptionskip}{1ex}
 \addtolength{\belowcaptionskip}{1ex}
+\usepackage{subcaption}
+
+% Nicer tables
+\usepackage{booktabs}
+
+%%%%%%%%%%%%%%%% ADDITIONAL PACKAGES & DEFINITIONS %%%%%%%%%%%%%%
+
+\usepackage{enumitem}
+\usepackage{expex}  % Can use linguex or other package instead; if so, remove the \NoIndentAfterCmd{\xe} command below
+\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage[dvipsnames]{xcolor} % for todos
+
+\usepackage{noindentafter}
+
+\AtBeginDocument{\lingset{glstyle=wrap}} % Fix incompatibility between expex and unicodemath
+\lingset{everygla={},aboveglftskip=-0.5ex}
+
+% No indents after lists or expex examples
+\NoIndentAfterEnv{itemize}
+\NoIndentAfterEnv{enumerate}
+\NoIndentAfterCmd{\xe}
+
+% Semantic interpretation brackets
+\newcommand{\sem}[1]{[\![ #1 ]\!]}
+
+% TODOs
+\newcommand{\todo}[1]{{\bf\small\textcolor{RedViolet}{[(TODO)~#1]}}}
 
 
-%%%%%%%%%%%%%%%% COMPULSORY FIELDS %%%%%%%%%%%%%%%%
-
-\title{Essays on Thesis-formatting} % needs to match title on DAC
+title{Essays on Thesis-formatting} % needs to match title on DAC
 \author{Econ Gradstudent} % full name as it appears on your GSAS record, needs
                           % to match name on DAC
 \degreename{Doctor of Philosophy}
@@ -146,12 +180,14 @@
   % I like "References" better than "Bibliography"
   \renewcommand{\bibname}{References}
 
-  % Any bibliohgraphy style that leaves space between entries is fine
-  \bibliographystyle{ecca}
-  \bibliography{references}
+  \printbibliography
 \end{singlespacing}
 
 % Appendices from all chapters should go at the end
+\begin{appendices}
+
 \input{appendix}
+
+\end{appendices}
 
 \end{document}
