@@ -79,6 +79,7 @@
       Cambridge, Massachusetts\\
       \@degreemonth\ \@degreeyear
     \end{center}
+    \addcontentsline{toc}{section}{Title}
     \vfil\null
   \end{titlepage}
   \addtocounter{page}{1} % titlepage is not numbered by default
@@ -92,6 +93,7 @@
     \copyright\ \@degreeyear\ \@author\\
     All rights reserved.
   \end{center}
+  \addcontentsline{toc}{section}{Copyright}
   \vfil\null
   \clearpage
 }
@@ -101,6 +103,7 @@
   \clearpage
   % Standard spacing for the header
   \begin{spacing}{1.2}
+  \noindent
     \begin{minipage}[t]{0.7\textwidth}
       \begin{flushleft}
         \ifx\@secondadvisor\undefined
@@ -137,6 +140,7 @@
 % Redefine them
 \renewcommand{\tableofcontents}%
 {
+  \addcontentsline{toc}{section}{Contents}
   \begin{spacing}{1.2} % 1.2 looks nicer than 1
     \LaTeXTOC
   \end{spacing}
